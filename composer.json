@@ -1,0 +1,44 @@
+{
+    "name": "jinseokoh/aligo",
+    "description": "Unofficial Aligo SMS package for Laravel",
+    "type": "library",
+    "version": "0.5.0",
+    "keywords": ["Laravel", "SMS", "Aligo"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chuck JS. Oh",
+            "email": "jinseokoh@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.1.3",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JinseokOh\\Aligo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JinseokOh\\Aligo\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JinseokOh\\Aligo\\AligoServiceProvider"
+            ],
+            "aliases": {
+                "Aligo": "JinseokOh\\Aligo\\AligoFacade"
+            }
+        }
+    }
+}
