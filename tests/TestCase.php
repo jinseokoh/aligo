@@ -2,11 +2,11 @@
 
 namespace JinseokOh\Aligo\Test;
 
-use JinseokOh\Aligo\AligoFacade;
 use JinseokOh\Aligo\AligoServiceProvider;
+use Mockery;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class TestCase extends OrchestraTestCase
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * Setup the test environment.
@@ -14,7 +14,16 @@ class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+    }
 
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        if ($container = \Mockery::getContainer()) {
+            $this->addToAssertionCount($container->mockery_getExpectationCount());
+        }
+        Mockery::close();
         $this->artisan('cache:clear');
     }
 
@@ -26,10 +35,10 @@ class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('aligo.base_url', 'https://apis.aligo.in');
-        $app['config']->set('aligo.app_id', 'set-your-aligo-app-id-here');
-        $app['config']->set('aligo.app_key', 'set-your-aligo-app-key-here');
-        $app['config']->set('aligo.phone_number', 'set-your-approved-phone-number-here');
+        $app['config']->set('services.aligo.app_id', 'amusetravel');
+        $app['config']->set('services.aligo.app_key', '00000000000000000000000000000000');
+        $app['config']->set('services.aligo.sms_from', '02-000-0000');
+        $app['config']->set('services.aligo.kakao_key', '0000000000000000000000000000000000000000');
     }
 
     /**
@@ -40,16 +49,6 @@ class TestCase extends OrchestraTestCase
     {
         return [
             AligoServiceProvider::class,
-        ];
-    }
-    /**
-     * Load package alias
-     * @return array
-     */
-    protected function getPackageAliases($app): array
-    {
-        return [
-            'Aligo' => AligoFacade::class,
         ];
     }
 }
