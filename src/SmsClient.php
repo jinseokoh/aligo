@@ -2,56 +2,52 @@
 
 namespace JinseokOh\Aligo;
 
-class AligoHandler
+use GuzzleHttp\Client as GuzzleClient;
+
+class SmsClient implements AligoClientContract
 {
     const SHORT_MESSAGE = 'SMS'; // KRW 8.4 per message
     const LONG_MESSAGE = 'LMS'; // KRW 25.9 per message
-    const IMAGE_MESSAGE = 'MMS'; // KRW 60 per message
 
     private $client;
+    private $appId;
+    private $appKey;
+    private $senderPhoneNumber;
 
     /**
      * Constructor
      */
-    public function __construct(AligoClient $client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = new GuzzleClient([
+            'base_uri' => config('aligo.sms_url'),
+        ]);
+        $this->appId = config('aligo.app_id');
+        $this->appKey = config('aligo.app_key');
+        $this->senderPhoneNumber = config('aligo.phone_number');
     }
 
     /**
-     * Send a short text message upto 90B
      * @param string $message
-     * @param array $receiverPhoneNumbers
-     * @param array $receiverNames
+     * @param string $receiverPhoneNumber
      * @param bool $testFlag
      * @return object|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendSMS(
+    public function sendMessage(
         string $message,
-        array $receiverPhoneNumbers,
-        array $receiverNames = [],
+        string $receiverPhoneNumber,
         bool $testFlag = false
     ): ?object {
         $payload = [];
         $payload['msg'] = $this->truncateMessageUpto90($message);
         $payload['msg_type'] = self::SHORT_MESSAGE;
-        $payload['receiver'] = implode(',', $receiverPhoneNumbers);
-        $payload['sender'] = config('aligo.phone_number');
-
-        if (count($receiverPhoneNumbers) === count($receiverNames)) {
-            $combo = [];
-            foreach ($receiverPhoneNumbers as $i => $number) {
-                $combo[] = "{$number}|{$receiverNames[$i]}";
-            }
-            $payload['destination'] = implode(',', $combo);
-        }
-
+        $payload['receiver'] = $receiverPhoneNumber;
+        $payload['sender'] = $this->senderPhoneNumber;
         if ($testFlag) {
             $payload['testmode_yn'] = 'Y';
         }
-
-        $response = $this->client->call("/send", $payload);
+        $response = $this->call("/send", $payload);
 
         return json_decode((string) $response->getBody(), false);
     }
@@ -60,47 +56,25 @@ class AligoHandler
      * Send a long text message upto 2KB
      * @param string $message
      * @param array $receiverPhoneNumbers
-     * @param array $receiverNames
      * @param bool $testFlag
      * @return object|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendLMS(
+    public function sendLongMessage(
         string $message,
         array $receiverPhoneNumbers,
-        array $receiverNames = [],
         bool $testFlag = false
     ): ?object {
         $payload = [];
         $payload['msg'] = $message;
         $payload['msg_type'] = self::LONG_MESSAGE;
         $payload['receiver'] = implode(',', $receiverPhoneNumbers);
-        $payload['sender'] = config('aligo.phone_number');
-
-        if (count($receiverPhoneNumbers) === count($receiverNames)) {
-            $combo = [];
-            foreach ($receiverPhoneNumbers as $i => $number) {
-                $combo[] = "{$number}|{$receiverNames[$i]}";
-            }
-            $payload['destination'] = implode(',', $combo);
-        }
-
+        $payload['sender'] = $this->senderPhoneNumber;
         if ($testFlag) {
             $payload['testmode_yn'] = 'Y';
         }
 
-        $response = $this->client->call("/send", $payload);
-
-        return json_decode((string) $response->getBody(), false);
-    }
-
-    /**
-     * request the remaining credits
-     * @return object|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function remain(): ?object {
-        $response = $this->client->call("/remain");
+        $response = $this->call("/send", $payload);
 
         return json_decode((string) $response->getBody(), false);
     }
@@ -131,5 +105,26 @@ class AligoHandler
         }
 
         return $message;
+    }
+
+    /**
+     * @param string $uri
+     * @param array $body
+     * @param string $method
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function call(string $uri, array $body = [], string $method = 'POST')
+    {
+        return $this->client->request($method, $uri, [
+            'headers' => [
+                'Content-Type' => 'application/json; charset=UTF-8',
+                'Accept' => 'application/json',
+            ],
+            'query' => array_merge([
+                'user_id' => $this->appId,
+                'key' => $this->appKey,
+            ], $body)
+        ]);
     }
 }

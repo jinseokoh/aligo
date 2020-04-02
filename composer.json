@@ -1,8 +1,8 @@
 {
     "name": "jinseokoh/aligo",
-    "description": "Unofficial Aligo SMS package for Laravel",
+    "description": "Unofficial Aligo text messaging package for Laravel",
     "type": "library",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "keywords": ["Laravel", "SMS", "Aligo"],
     "license": "MIT",
     "authors": [
@@ -35,10 +35,7 @@
         "laravel": {
             "providers": [
                 "JinseokOh\\Aligo\\AligoServiceProvider"
-            ],
-            "aliases": {
-                "Aligo": "JinseokOh\\Aligo\\AligoFacade"
-            }
+            ]
         }
     }
 }

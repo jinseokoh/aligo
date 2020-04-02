@@ -14,12 +14,6 @@ class AligoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom( __DIR__.'/config/aligo.php', 'aligo');
-
-        $this->app->singleton(AligoHandler::class, function ($app) {
-            return new AligoHandler(new AligoClient());
-        });
-
-        $this->app->alias(AligoHandler::class, 'Aligo');
     }
 
     /**
