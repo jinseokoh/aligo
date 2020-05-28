@@ -1,25 +1,29 @@
 {
     "name": "jinseokoh/aligo",
-    "description": "Unofficial Aligo text messaging package for Laravel",
+    "description": "Laravel notification channel for Aligo",
     "type": "library",
-    "version": "1.0.0",
-    "keywords": ["Laravel", "SMS", "Aligo"],
+    "version": "2.0.0",
+    "keywords": ["Laravel", "Notifications", "SMS", "LMS", "Kakao", "Aligo", "문자"],
     "license": "MIT",
     "authors": [
         {
             "name": "Chuck JS. Oh",
-            "email": "jinseokoh@hotmail.com"
+            "email": "jinseokoh@hotmail.com",
+            "homepage": "https://github.com/jinseokoh"
         }
     ],
     "minimum-stability": "dev",
     "require": {
         "php": "^7.1.3",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/notifications": "~5.5 || ~6.0 || ~7.0",
+        "illuminate/support": "~5.5 || ~6.0 || ~7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
-        "orchestra/testbench": "^4.0"
+        "orchestra/testbench": "^4.0",
+        "hamcrest/hamcrest-php": "^2.1@dev"
     },
     "autoload": {
         "psr-4": {

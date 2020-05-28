@@ -14,7 +14,7 @@ class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        // $this->artisan('cache:clear');
+        $this->artisan('cache:clear');
     }
 
     /**
@@ -25,10 +25,15 @@ class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('aligo.app_id', 'set-your-aligo-app-id-here');
-        $app['config']->set('aligo.app_key', 'set-your-aligo-app-key-here');
-        $app['config']->set('aligo.phone_number', 'set-your-approved-phone-number-here');
-        $app['config']->set('aligo.kakao_sender_key', 'set-your-kakao-sender-key-here');
+        // ALIGO_APP_ID=amusetravel
+        // ALIGO_APP_KEY=t4ae0lx8tgp889ey5448wcsgt3urb5rb
+        // ALIGO_PHONE_NUMBER=027196810
+        // ALIGO_KAKAO_SENDER_KEY=72177a356440d1d6c50945ed2655ed0ee8fe6a60
+
+        $app['config']->set('services.aligo.app_id', 'amusetravel');
+        $app['config']->set('services.aligo.app_key', 't4ae0lx8tgp889ey5448wcsgt3urb5rb');
+        $app['config']->set('services.aligo.sms_from', '02-719-6810');
+        $app['config']->set('services.aligo.kakao_key', '72177a356440d1d6c50945ed2655ed0ee8fe6a60');
     }
 
     /**
