@@ -10,7 +10,7 @@ class TestKakaoNotification extends Notification
     public function toAligoKakao($notifiable)
     {
         return (new AligoKakaoMessage())
-            ->content('Hello world, this is my long message line. where have you been at? I couldn\'t reach out to ya.')
-            ->short();
+            ->code('WHATEVER')
+            ->replacements(['who', 'the', 'hell', 'are', 'you']);
     }
 }

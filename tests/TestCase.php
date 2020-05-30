@@ -3,9 +3,10 @@
 namespace JinseokOh\Aligo\Test;
 
 use JinseokOh\Aligo\AligoServiceProvider;
+use Mockery;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class TestCase extends OrchestraTestCase
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * Setup the test environment.
@@ -13,8 +14,18 @@ class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        // $this->artisan('cache:clear');
+    }
 
-        $this->artisan('cache:clear');
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        if ($container = \Mockery::getContainer()) {
+            $this->addToAssertionCount($container->mockery_getExpectationCount());
+        }
+
+        Mockery::close();
     }
 
     /**

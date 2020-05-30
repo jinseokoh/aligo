@@ -3,7 +3,7 @@
 namespace JinseokOh\Aligo;
 
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\Aligo\Exceptions\InvalidConfiguration;
+use JinseokOh\Aligo\Exceptions\InvalidConfiguration;
 
 
 class AligoServiceProvider extends ServiceProvider

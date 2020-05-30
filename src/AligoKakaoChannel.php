@@ -3,7 +3,7 @@
 namespace JinseokOh\Aligo;
 
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Aligo\Exceptions\CouldNotSendNotification;
+use JinseokOh\Aligo\Exceptions\CouldNotSendNotification;
 
 class AligoKakaoChannel
 {
@@ -21,7 +21,7 @@ class AligoKakaoChannel
      * @param  \Illuminate\Notifications\Notification $notification
      * @return mixed
      *
-     * @throws \NotificationChannels\Aligo\Exceptions\CouldNotSendNotification
+     * @throws \JinseokOh\Aligo\Exceptions\CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
     {
@@ -30,7 +30,7 @@ class AligoKakaoChannel
         }
 
         /** @var AligoKakaoMessage $message */
-        $message = $notification->toAligo($notifiable);
+        $message = $notification->toAligoKakao($notifiable);
         $message->to($to);
 
         try {

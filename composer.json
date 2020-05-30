@@ -14,7 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2.5",
         "ext-json": "*",
         "guzzlehttp/guzzle": "~6.0",
         "illuminate/notifications": "~5.5 || ~6.0 || ~7.0",
@@ -34,6 +34,9 @@
         "psr-4": {
             "JinseokOh\\Aligo\\Test\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     },
     "extra": {
         "laravel": {

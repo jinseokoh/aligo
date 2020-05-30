@@ -6,9 +6,9 @@ use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use NotificationChannels\Aligo\Dtos\KakaoTemplateButtonDto;
-use NotificationChannels\Aligo\Dtos\KakaoTemplateDto;
-use NotificationChannels\Aligo\Exceptions\CouldNotSendNotification;
+use JinseokOh\Aligo\Dtos\KakaoTemplateButtonDto;
+use JinseokOh\Aligo\Dtos\KakaoTemplateDto;
+use JinseokOh\Aligo\Exceptions\CouldNotSendNotification;
 
 class AligoKakaoClient
 {

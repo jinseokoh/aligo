@@ -2,17 +2,17 @@
 
 namespace JinseokOh\Aligo\Test;
 
-use JinseokOh\Aligo\AligoTextChannel;
-use JinseokOh\Aligo\AligoTextClient;
+use JinseokOh\Aligo\AligoKakaoChannel;
+use JinseokOh\Aligo\AligoKakaoClient;
 use Mockery;
 
-class AligoTextChannelTest extends TestCase
+class AligoKakaoChannelTest extends TestCase
 {
     /** @test */
     public function it_can_send_a_notification()
     {
-        $client = Mockery::mock(AligoTextClient::class);
-        $channel = new AligoTextChannel($client);
+        $client = Mockery::mock(AligoKakaoClient::class);
+        $channel = new AligoKakaoChannel($client);
         $client
             ->shouldReceive('send')
             ->once()
@@ -22,7 +22,7 @@ class AligoTextChannelTest extends TestCase
 //            }));
 
         $notifiable = new TestNotifiable();
-        $notification = new TestTextNotification();
+        $notification = new TestKakaoNotification();
         $channel->send($notifiable, $notification);
     }
 }

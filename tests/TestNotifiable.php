@@ -15,4 +15,12 @@ class TestNotifiable
     {
         return '010-9486-7415';
     }
+
+    /**
+     * @return string
+     */
+    public function routeNotificationForAligoKakao()
+    {
+        return '010-9486-7415';
+    }
 }
