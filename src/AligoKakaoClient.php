@@ -167,7 +167,12 @@ class AligoKakaoClient
      */
     private function getAccessToken(): string
     {
-        $token = Storage::disk('local')->get(self::ALIGO_ACCESS_TOKEN_FILE);
+        try {
+            $token = Storage::disk('local')->get(self::ALIGO_ACCESS_TOKEN_FILE);
+        } catch (\Exception $exception) {
+            $token = null;
+        }
+
         if (empty($token)) {
             try {
                 $response = $this->call('/akv10/token/create/10/y');

@@ -2,7 +2,7 @@
     "name": "jinseokoh/aligo",
     "description": "Laravel notification channel for Aligo",
     "type": "library",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "keywords": ["Laravel", "Notifications", "SMS", "LMS", "Kakao", "Aligo", "문자"],
     "license": "MIT",
     "authors": [
