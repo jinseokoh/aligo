@@ -1,9 +1,9 @@
 <?php
 
-namespace JinseokOh\Aligo\Test;
+namespace JinseokOh\Aligo\Tests;
 
-use JinseokOh\Aligo\AligoServiceProvider;
 use Mockery;
+use JinseokOh\Aligo\AligoServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
@@ -24,7 +24,6 @@ abstract class TestCase extends OrchestraTestCase
             $this->addToAssertionCount($container->mockery_getExpectationCount());
         }
         Mockery::close();
-        $this->artisan('cache:clear');
     }
 
     /**

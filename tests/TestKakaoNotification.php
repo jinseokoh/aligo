@@ -1,6 +1,6 @@
 <?php
 
-namespace JinseokOh\Aligo\Test;
+namespace JinseokOh\Aligo\Tests;
 
 use Illuminate\Notifications\Notification;
 use JinseokOh\Aligo\AligoKakaoMessage;

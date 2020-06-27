@@ -1,6 +1,6 @@
 <?php
 
-namespace JinseokOh\Aligo\Test;
+namespace JinseokOh\Aligo\Tests;
 
 use Illuminate\Notifications\Notification;
 use JinseokOh\Aligo\AligoTextChannel;
@@ -8,10 +8,10 @@ use JinseokOh\Aligo\AligoTextMessage;
 
 class TestTextNotification extends Notification
 {
-//    public function via($notifiable)
-//    {
-//        return [AligoTextChannel::class];
-//    }
+    public function via($notifiable)
+    {
+        return [AligoTextChannel::class];
+    }
 
     public function toAligoText($notifiable)
     {

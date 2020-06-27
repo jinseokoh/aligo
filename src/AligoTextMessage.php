@@ -39,7 +39,7 @@ class AligoTextMessage
     public function content($content)
     {
         $this->content = $content;
-        $this->type = $this->detectMessageType();
+        $this->type = $this->detectMessageType($content);
 
         return $this;
     }
@@ -51,8 +51,8 @@ class AligoTextMessage
      */
     public function short()
     {
-        $this->content = $this->truncate(self::MAX_LENGTH_FOR_SHORT_MESSAGE);
-        $this->type = self::SHORT_MESSAGE;
+        $message = $this->truncate($this->content);
+        $this->content($message);
 
         return $this;
     }
@@ -86,22 +86,22 @@ class AligoTextMessage
     // ================================================================================
 
     /**
+     * @param string $message
      * @return string
      */
-    private function detectMessageType(): string
+    private function detectMessageType(string $message): string
     {
-        return $this->getStringLengthInEucKr() > self::MAX_LENGTH_FOR_SHORT_MESSAGE
+        return $this->kr_strlen($message) > self::MAX_LENGTH_FOR_SHORT_MESSAGE
             ? self::LONG_MESSAGE : self::SHORT_MESSAGE;
     }
 
     /**
-     * @param int $upto
+     * @param string $message
      * @return string
      */
-    private function truncate(int $upto): string
+    private function truncate(string $message): string
     {
-        $message = $this->content;
-        while ($this->getStringLengthInEucKr() > $upto)	{
+        while ($this->kr_strlen($message) > self::MAX_LENGTH_FOR_SHORT_MESSAGE) {
             $message = mb_substr($message, 0, -1);
         }
 
@@ -112,14 +112,14 @@ class AligoTextMessage
      * @param string $message
      * @return int
      */
-    private function getStringLengthInEucKr(): int
+    private function kr_strlen($message): int
     {
-        $multiByteStringOnly = preg_replace(
+        $multiByteStringsOnly = preg_replace(
             "/[[:alnum:]]|[[:space:]]|[[:punct:]]/",
             "",
-            $this->content
+            $message
         );
 
-        return mb_strlen($this->content) + mb_strlen($multiByteStringOnly);
+        return mb_strlen($message) + mb_strlen($multiByteStringsOnly);
     }
 }
