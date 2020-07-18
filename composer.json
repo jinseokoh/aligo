@@ -2,7 +2,7 @@
   "name": "jinseokoh/aligo",
   "description": "Laravel notification channel for Aligo",
   "type": "library",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "keywords": [
     "Laravel",
     "Notifications",

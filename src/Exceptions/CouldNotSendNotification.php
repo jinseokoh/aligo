@@ -7,10 +7,10 @@ use Exception;
 class CouldNotSendNotification extends Exception
 {
     /**
-     * @param Exception $exception
+     * @param \Throwable $exception
      * @return static
      */
-    public static function serviceRespondedWithAnError(Exception $exception): self
+    public static function serviceRespondedWithAnError(\Throwable $exception): self
     {
         return new static(
             "The communication with Aligo failed. Reason: {$exception->getMessage()}",

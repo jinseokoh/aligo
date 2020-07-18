@@ -34,7 +34,7 @@ class AligoKakaoClient
     public function __construct(string $appId, string $appKey, string $smsFrom, string $kakaoKey)
     {
         $this->client = new GuzzleClient([
-            'base_uri' =>'https://kakaoapi.aligo.in'
+            'base_uri' => 'https://kakaoapi.aligo.in'
         ]);
         $this->appId = $appId;
         $this->appKey = $appKey;
@@ -58,14 +58,12 @@ class AligoKakaoClient
             'sender' => $this->smsFrom,
             'tpl_code' => $message->code,
             'receiver_1' => $message->to,
-            'subject_1' => '', // Aligo specs mentioned this field as required but in fact it's not being used. Wtf?
+            'subject_1' => 'n/a', // Aligo specs mentioned this field as required but in fact it's not being used. Wtf?
             'message_1' => $this->compositeKakaoMessageWithReplacements($dto->getMessage(), $message->replacements)
         ];
         if (! empty($dto->getButton())) {
             $payload = array_merge([
-                'button_1' => json_encode([
-                    'button' => $dto->getButton()
-                ])
+                'button_1' => json_encode(['button' => $dto->getButton()])
             ], $payload);
         }
         if ($message->debug) {
@@ -136,18 +134,18 @@ class AligoKakaoClient
             return collect($data->list)
                 ->map(function ($item) {
                     return new KakaoTemplateDto(
-                        $item['templtCode'],
-                        $item['templtContent'],
-                        collect($item['buttons'])
+                        $item->templtCode,
+                        $item->templtContent,
+                        collect($item->buttons)
                             ->map(function ($item) {
                                 return new KakaoTemplateButtonDto(
-                                    $item['name'],
-                                    $item['linkType'],
-                                    $item['linkTypeName'],
-                                    $item['linkMo'],
-                                    $item['linkPc'],
-                                    $item['linkIos'],
-                                    $item['linkAnd']
+                                    $item->name,
+                                    $item->linkType,
+                                    $item->linkTypeName,
+                                    $item->linkMo,
+                                    $item->linkPc,
+                                    $item->linkIos,
+                                    $item->linkAnd
                                 );
                             })
                             ->toArray()
