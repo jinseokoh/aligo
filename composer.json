@@ -1,56 +1,56 @@
 {
-  "name": "jinseokoh/aligo",
-  "description": "Laravel notification channel for Aligo",
-  "type": "library",
-  "version": "2.0.4",
-  "keywords": [
-    "Laravel",
-    "Notifications",
-    "SMS",
-    "LMS",
-    "Kakao",
-    "Aligo",
-    "문자"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Chuck JS. Oh",
-      "email": "jinseokoh@hotmail.com",
-      "homepage": "https://github.com/jinseokoh"
+    "name": "jinseokoh/aligo",
+    "description": "Laravel notification channel for Aligo",
+    "type": "library",
+    "version": "2.1.0",
+    "keywords": [
+        "Laravel",
+        "Notifications",
+        "SMS",
+        "LMS",
+        "Kakao",
+        "Aligo",
+        "문자"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chuck JS. Oh",
+            "email": "jinseokoh@hotmail.com",
+            "homepage": "https://github.com/jinseokoh"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.2.5",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.0 || ^7.0",
+        "illuminate/notifications": "~5.6 || ~6.0 || ~7.0 || ~8.0",
+        "illuminate/support": "~5.6 || ~6.0 || ~7.0 || ~8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
+        "hamcrest/hamcrest-php": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JinseokOh\\Aligo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JinseokOh\\Aligo\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JinseokOh\\Aligo\\AligoServiceProvider"
+            ]
+        }
     }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "php": "^7.2.5",
-    "ext-json": "*",
-    "guzzlehttp/guzzle": "~6.0",
-    "illuminate/notifications": "~5.5 || ~6.0 || ~7.0",
-    "illuminate/support": "~5.5 || ~6.0 || ~7.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^8.0",
-    "orchestra/testbench": "^4.0",
-    "hamcrest/hamcrest-php": "^2.1@dev"
-  },
-  "autoload": {
-    "psr-4": {
-      "JinseokOh\\Aligo\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "JinseokOh\\Aligo\\Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "JinseokOh\\Aligo\\AligoServiceProvider"
-      ]
-    }
-  }
 }
